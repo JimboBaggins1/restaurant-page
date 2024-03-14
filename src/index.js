@@ -1,5 +1,7 @@
 import './style.css';
 import { buildPage } from './page-load';
+import { menuContent } from './menu';
+import { aboutContent } from './about';
 
 buildPage();
 console.log('Hello webpack!');
@@ -14,9 +16,30 @@ const SwitchTabs = () => {
 const homeBtn = document.getElementById('home');
 const menuBtn = document.getElementById('menu');
 const aboutBtn = document.getElementById('about');
+const buttons = [homeBtn, menuBtn, aboutBtn];
 
-homeBtn.addEventListener('click', SwitchTabs);
-menuBtn.addEventListener('click', SwitchTabs);
-aboutBtn.addEventListener('click', SwitchTabs);
+// control css depending on which button is currently clicked
+const clickedBtn = (currentBtn) => {
+    buttons.forEach((btn) => {
+        btn === currentBtn ? btn.classList.add('clicked') : btn.classList.remove('clicked');
+    });
+};
+
+// button listeners
+homeBtn.addEventListener('click', () => {
+    SwitchTabs();
+    buildPage();
+    clickedBtn(homeBtn);
+});
+menuBtn.addEventListener('click', () => {
+    SwitchTabs();
+    menuContent();
+    clickedBtn(menuBtn);
+});
+aboutBtn.addEventListener('click', () => {
+    SwitchTabs();
+    aboutContent();
+    clickedBtn(aboutBtn);
+});
 
 
